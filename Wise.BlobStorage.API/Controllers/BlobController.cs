@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wise.BlobStorage.Application.Commands;
 
 namespace Wise.BlobStorage.API.Controllers
 {
     [ApiController]
+    [Authorize]
     public class BlobController : ControllerBase
     {
         private readonly IMediator _mediator;
