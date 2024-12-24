@@ -26,6 +26,10 @@ namespace Wise.BlobStorage.Infrastructure.Configurations
             builder.Property(x => x.Data)
                 .IsRequired(false)
                 .HasColumnOrder(4);
+
+            builder.Property(x=> x.BlobType)
+                .IsRequired()
+                .HasColumnOrder(5);
         }
     }
 }

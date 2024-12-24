@@ -20,7 +20,8 @@ namespace Wise.BlobStorage.Infrastructure.Providers
         public async Task<byte[]> GetBlobAsync(string containerName, string blobName)
         {
             var provider = _blobProviderFactory.Create();
-            return await provider.GetAsync(containerName, blobName);
+            //return await provider.GetAsync(containerName, blobName);
+            throw new NotImplementedException();
         }
 
         public async Task DeleteBlobAsync(string containerName, string blobName)

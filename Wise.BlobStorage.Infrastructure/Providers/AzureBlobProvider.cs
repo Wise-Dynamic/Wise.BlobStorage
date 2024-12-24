@@ -1,4 +1,5 @@
 ﻿using BlobStorage.Interfaces;
+using Wise.BlobStorage.Domain.Entities;
 
 namespace BlobStorage.Providers
 {
@@ -9,7 +10,7 @@ namespace BlobStorage.Providers
             throw new NotImplementedException();
         }
 
-        public Task<byte[]> GetAsync(string containerName, string blobName)
+        public Task<byte[]> GetAsync(Blob blob)
         {
             throw new NotImplementedException();
         }

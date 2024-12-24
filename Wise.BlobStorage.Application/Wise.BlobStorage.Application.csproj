@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Wise.BlobStorage.Infrastructure\Wise.BlobStorage.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Queries\" />
-  </ItemGroup>
-
 </Project>

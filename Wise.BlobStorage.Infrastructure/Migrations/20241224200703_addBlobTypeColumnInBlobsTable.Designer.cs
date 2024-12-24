@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Wise.BlobStorage.Infrastructure.Context;
 
@@ -11,9 +12,11 @@ using Wise.BlobStorage.Infrastructure.Context;
 namespace Wise.BlobStorage.Infrastructure.Migrations
 {
     [DbContext(typeof(WiseDbContext))]
-    partial class WiseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241224200703_addBlobTypeColumnInBlobsTable")]
+    partial class addBlobTypeColumnInBlobsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

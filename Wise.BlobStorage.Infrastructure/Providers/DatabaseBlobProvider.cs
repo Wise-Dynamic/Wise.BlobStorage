@@ -23,7 +23,8 @@ namespace BlobStorage.Providers
                 {
                     ContainerName = containerName,
                     BlobName = blobName,
-                    Data = memoryStream.ToArray()
+                    Data = memoryStream.ToArray(),
+                    BlobType = BlobType.Database
                 };
 
                 await _context.Blobs.AddAsync(blobEntity);
@@ -31,16 +32,8 @@ namespace BlobStorage.Providers
             }
         }
 
-        public async Task<byte[]> GetAsync(string containerName, string blobName)
+        public async Task<byte[]> GetAsync(Blob blob)
         {
-            var blob = await _context.Blobs
-                .FirstOrDefaultAsync(x => x.ContainerName == containerName && x.BlobName == blobName);
-
-            if (blob == null)
-            {
-                throw new Exception("Blob not found");
-            }
-
             return blob.Data;
         }
 
@@ -56,7 +49,6 @@ namespace BlobStorage.Providers
                 await _context.SaveChangesAsync();
             }
         }
-
-
+     
     }
 }

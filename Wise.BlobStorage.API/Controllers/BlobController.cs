@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wise.BlobStorage.Application.Commands;
+using Wise.BlobStorage.Application.Queries;
 
 namespace Wise.BlobStorage.API.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize]
+    [AllowAnonymous]
     public class BlobController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -15,9 +17,8 @@ namespace Wise.BlobStorage.API.Controllers
             _mediator = mediator;
         }
 
-        [Route("api/blobs")]
-        [HttpPost]
-        public async Task<IActionResult> CreateBlob(string containerName , IFormFile formFile)
+        [HttpPost("api/blobs")]
+        public async Task<IActionResult> CreateBlob(IFormFile formFile , string? containerName = "default" )
         {
             using (var stream = formFile.OpenReadStream())
             {
@@ -28,6 +29,14 @@ namespace Wise.BlobStorage.API.Controllers
                     Data = stream
                 }));
             }          
+        }
+
+        [HttpGet("api/blobs/{id}")]
+        public async Task<IActionResult> GetBlob([FromRoute]long id)
+        {
+            var data = await _mediator.Send(new GetBlobCommand { BlobId = id });
+            const string mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            return File(data, mimeType , "deneme.xlsx");
         }
     }
 }
