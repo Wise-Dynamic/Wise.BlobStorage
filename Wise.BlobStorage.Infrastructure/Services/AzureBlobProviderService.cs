@@ -3,7 +3,7 @@ using Wise.BlobStorage.Domain.Entities;
 
 namespace BlobStorage.Providers
 {
-    public class AzureBlobProvider : IBlobProvider , IAzureBlobProvider
+    public class AzureBlobProviderService : IBlobProviderService , IAzureBlobProviderService
     {
         public Task DeleteAsync(string containerName, string blobName)
         {

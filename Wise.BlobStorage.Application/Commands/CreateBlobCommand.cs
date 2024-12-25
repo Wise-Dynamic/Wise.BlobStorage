@@ -11,9 +11,9 @@ namespace Wise.BlobStorage.Application.Commands
     }
     public class CreateBlobCommandHandler : IRequestHandler<CreateBlobCommand, bool>
     {
-        private readonly IBlobProviderFactory _blobProviderFactory;
+        private readonly IBlobProviderFactoryService _blobProviderFactory;
         
-        public CreateBlobCommandHandler(IBlobProviderFactory blobProviderFactory)
+        public CreateBlobCommandHandler(IBlobProviderFactoryService blobProviderFactory)
         {
             _blobProviderFactory = blobProviderFactory;
         }

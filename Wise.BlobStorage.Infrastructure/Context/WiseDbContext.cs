@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;
 using Wise.BlobStorage.Domain.Entities;
+using Wise.BlobStorage.Infrastructure.Configurations;
 using Wise.BlobStorage.Infrastructure.Helpers;
 
 namespace Wise.BlobStorage.Infrastructure.Context

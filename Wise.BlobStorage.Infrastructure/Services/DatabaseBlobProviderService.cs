@@ -5,10 +5,10 @@ using Wise.BlobStorage.Infrastructure.Context;
 
 namespace BlobStorage.Providers
 {
-    public class DatabaseBlobProvider : IBlobProvider, IDatabaseBlobProvider
+    public class DatabaseBlobProviderService : IBlobProviderService, IDatabaseBlobProviderService
     {
         private readonly WiseDbContext _context;
-        public DatabaseBlobProvider(WiseDbContext context)
+        public DatabaseBlobProviderService(WiseDbContext context)
         {
             _context = context;
         }

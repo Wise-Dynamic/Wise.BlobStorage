@@ -13,12 +13,12 @@ namespace Wise.BlobStorage.Infrastructure
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services , IConfiguration configuration)
         {
             
-            services.AddDbContext<WiseDbContext>(options =>
-            {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            });
+            //services.AddDbContext<WiseDbContext>(options =>
+            //{
+            //    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            //});
 
-            services.AddScoped<IBlobProviderFactory, BlobProviderFactory>();
+            services.AddScoped<IBlobProviderFactoryService, BlobProviderFactoryService>();
             services.AddScoped<IBlobService, BlobService>();
 
             return services;

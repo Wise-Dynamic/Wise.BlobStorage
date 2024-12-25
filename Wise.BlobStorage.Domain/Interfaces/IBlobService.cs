@@ -5,5 +5,6 @@
         Task SaveBlobAsync(string containerName, string blobName, Stream data);
         Task<byte[]> GetBlobAsync(string containerName, string blobName);
         Task DeleteBlobAsync(string containerName, string blobName);
+        string GetMimeType(string fileName);
     }
 }

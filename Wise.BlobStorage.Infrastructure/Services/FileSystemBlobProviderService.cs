@@ -4,11 +4,11 @@ using Wise.BlobStorage.Infrastructure.Context;
 
 namespace BlobStorage.Providers
 {
-    public class FileSystemBlobProvider : IBlobProvider , IFileSystemBlobProvider
+    public class FileSystemBlobProviderService : IBlobProviderService , IFileSystemBlobProviderService
     {
         private readonly string _basePath;
         private readonly WiseDbContext _context;
-        public FileSystemBlobProvider(string basePath , WiseDbContext context)
+        public FileSystemBlobProviderService(string basePath , WiseDbContext context)
         {
             _basePath = basePath;
             _context = context;

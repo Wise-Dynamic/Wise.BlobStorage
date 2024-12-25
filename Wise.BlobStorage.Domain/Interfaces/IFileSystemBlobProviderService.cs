@@ -1,6 +1,6 @@
 ﻿namespace BlobStorage.Interfaces
 {
-    public interface IDatabaseBlobProvider
+    public interface IFileSystemBlobProviderService
     {
     }
 }

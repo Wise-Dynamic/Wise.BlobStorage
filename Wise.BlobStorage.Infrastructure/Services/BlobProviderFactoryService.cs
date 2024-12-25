@@ -9,20 +9,20 @@ using Wise.BlobStorage.Infrastructure.Context;
 
 namespace BlobStorage.Providers
 {
-    public class BlobProviderFactory : IBlobProviderFactory
+    public class BlobProviderFactoryService : IBlobProviderFactoryService
     {
         private readonly BlobStorageOption _options;
         private readonly IServiceProvider _serviceProvider;
         private readonly WiseDbContext _context;
 
-        public BlobProviderFactory(IOptions<BlobStorageOption> options, IServiceProvider serviceProvider, WiseDbContext context)
+        public BlobProviderFactoryService(IOptions<BlobStorageOption> options, IServiceProvider serviceProvider, WiseDbContext context)
         {
             _options = options.Value;
             _serviceProvider = serviceProvider;
             _context = context;
         }
 
-        public async Task<(IBlobProvider, Blob)> GetProvider(long blobId)
+        public async Task<(IBlobProviderService, Blob)> GetProvider(long blobId)
         {
             var blob = await _context.Blobs.FirstOrDefaultAsync(x => x.Id == blobId && !x.IsDeleted);
             if (blob == null)
@@ -39,7 +39,7 @@ namespace BlobStorage.Providers
             };
         }
 
-        public IBlobProvider Create()
+        public IBlobProviderService Create()
         {
             var providerName = _options.Provider;
 
@@ -51,26 +51,26 @@ namespace BlobStorage.Providers
             };
         }
 
-        public IBlobProvider CreateFileSystemProvider()
+        public IBlobProviderService CreateFileSystemProvider()
         {
             var dbContext = _serviceProvider.GetRequiredService<WiseDbContext>();
             var configuration = _serviceProvider.GetRequiredService<IConfiguration>();
             var basePath = configuration.GetSection("BlobStorage:FileSystem:BasePath").Value;
             basePath = Path.Combine(Directory.GetCurrentDirectory(), basePath);
-            return new FileSystemBlobProvider(basePath,dbContext);
+            return new FileSystemBlobProviderService(basePath,dbContext);
         }
        
-        private IBlobProvider CreateDatabaseProvider()
+        private IBlobProviderService CreateDatabaseProvider()
         {
             var dbContext = _serviceProvider.GetRequiredService<WiseDbContext>();
-            return new DatabaseBlobProvider(dbContext);
+            return new DatabaseBlobProviderService(dbContext);
         }
 
-        private IBlobProvider CreateAzureProvider()
+        private IBlobProviderService CreateAzureProvider()
         {
             //var configuration = _serviceProvider.GetRequiredService<IConfiguration>();
             //var connectionString = configuration.GetSection("BlobStorage:Azure:ConnectionString").Value;
-            return new AzureBlobProvider();
+            return new AzureBlobProviderService();
         }
 
     }

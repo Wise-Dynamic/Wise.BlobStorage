@@ -7,8 +7,7 @@ using Wise.BlobStorage.Application.Queries;
 namespace Wise.BlobStorage.API.Controllers
 {
     [ApiController]
-    //[Authorize]
-    [AllowAnonymous]
+    [Authorize]   
     public class BlobController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -34,9 +33,8 @@ namespace Wise.BlobStorage.API.Controllers
         [HttpGet("api/blobs/{id}")]
         public async Task<IActionResult> GetBlob([FromRoute]long id)
         {
-            var data = await _mediator.Send(new GetBlobCommand { BlobId = id });
-            const string mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            return File(data, mimeType , "deneme.xlsx");
+            var result = await _mediator.Send(new GetBlobCommand { BlobId = id });
+            return File(result.Data, result.MimeType , result.FileName);
         }
     }
 }

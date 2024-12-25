@@ -1,6 +1,6 @@
 ﻿namespace BlobStorage.Interfaces
 {
-    public interface IAzureBlobProvider
+    public interface IAzureBlobProviderService
     {
     }
 }

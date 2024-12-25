@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
-namespace Wise.BlobStorage.Infrastructure
+namespace Wise.BlobStorage.Infrastructure.Configurations
 {
     public class BlankTriggerAddingConvention : IModelFinalizingConvention
     {
