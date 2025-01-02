@@ -17,7 +17,7 @@ namespace Wise.BlobStorage.API.Controllers
         }
 
         [HttpPost("api/blobs")]
-        public async Task<IActionResult> CreateBlob(IFormFile formFile , string? containerName = "default" )
+        public async Task<IActionResult> CreateBlob(IFormFile formFile , [FromQuery]string? containerName = "default" )
         {
             using (var stream = formFile.OpenReadStream())
             {
