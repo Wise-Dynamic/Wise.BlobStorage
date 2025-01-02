@@ -34,7 +34,8 @@ namespace Wise.BlobStorage.API.Controllers
         public async Task<IActionResult> GetBlob([FromRoute]long id)
         {
             var result = await _mediator.Send(new GetBlobCommand { BlobId = id });
-            return File(result.Data, result.MimeType , result.FileName);
+            //return File(result.Data, result.MimeType , result.FileName);
+            return Ok(result);
         }
     }
 }

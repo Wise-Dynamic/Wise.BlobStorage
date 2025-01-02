@@ -14,7 +14,7 @@ namespace BlobStorage.Providers
             _context = context;
         }
 
-        public async Task SaveAsync(string containerName, string blobName, Stream data)
+        public async Task<long> SaveAsync(string containerName, string blobName, Stream data)
         {
             var containerPath = Path.Combine(_basePath, containerName);
             if (!Directory.Exists(containerPath))
@@ -38,6 +38,8 @@ namespace BlobStorage.Providers
 
             await _context.Blobs.AddAsync(blobEntity);
             await _context.SaveChangesAsync();
+
+            return blobEntity.Id;
         }
 
         public async Task<byte[]> GetAsync(Blob blob)

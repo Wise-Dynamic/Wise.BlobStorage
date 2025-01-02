@@ -13,7 +13,7 @@ namespace BlobStorage.Providers
             _context = context;
         }
 
-        public async Task SaveAsync(string containerName, string blobName, Stream data)
+        public async Task<long> SaveAsync(string containerName, string blobName, Stream data)
         {
             using (var memoryStream = new MemoryStream())
             {
@@ -29,6 +29,8 @@ namespace BlobStorage.Providers
 
                 await _context.Blobs.AddAsync(blobEntity);
                 await _context.SaveChangesAsync();
+
+                return blobEntity.Id;
             }
         }
 
