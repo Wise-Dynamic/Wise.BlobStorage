@@ -16,26 +16,64 @@ namespace Wise.BlobStorage.API.Controllers
             _mediator = mediator;
         }
 
+        
+        [HttpGet]
+        [Route("show/{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> PreviewAsync([FromRoute]Guid id)
+        {
+            var result = await _mediator.Send(new GetBlobCommand { BlobId = id });
+
+            
+            var contentType = GetContentType(result.FileName);
+            
+            return File(result.Data,contentType);
+        }
+        
+                
+        [HttpGet]
+        [Route("download/{id}")]
+        public async Task<IActionResult> DownloadAsync([FromRoute]Guid id)
+        {
+            var result = await _mediator.Send(new GetBlobCommand { BlobId = id });
+            
+            return File(result.Data,"application/octet-stream", result.FileName);
+        }
+        
         [HttpPost("api/blobs")]
         public async Task<IActionResult> CreateBlob(IFormFile formFile , [FromQuery]string? containerName = "default" )
         {
-            using (var stream = formFile.OpenReadStream())
+            await using var stream = formFile.OpenReadStream();
+            
+            return Ok(await _mediator.Send(new CreateBlobCommand
             {
-                return Ok(await _mediator.Send(new CreateBlobCommand
-                {
-                    ContainerName = containerName,
-                    BlobName = formFile.FileName,
-                    Data = stream
-                }));
-            }          
+                ContainerName = containerName,
+                BlobName = formFile.FileName,
+                Data = stream
+            }));
         }
-
-        [HttpGet("api/blobs/{id}")]
-        public async Task<IActionResult> GetBlob([FromRoute]long id)
+        
+        
+        
+        
+        private string GetContentType(string path)
         {
-            var result = await _mediator.Send(new GetBlobCommand { BlobId = id });
-            //return File(result.Data, result.MimeType , result.FileName);
-            return Ok(result);
+            var types = new Dictionary<string, string>
+            {
+                { ".jpg", "image/jpeg" },
+                { ".jpeg", "image/jpeg" },
+                { ".png", "image/png" },
+                { ".gif", "image/gif" },
+                { ".bmp", "image/bmp" },
+                { ".tiff", "image/tiff" },
+                { ".ico", "image/x-icon" },
+                { ".svg", "image/svg+xml" },
+                { ".webp", "image/webp" }
+            };
+
+            var ext = Path.GetExtension(path).ToLowerInvariant();
+            return types.ContainsKey(ext) ? types[ext] : "application/octet-stream";
         }
+      
     }
 }

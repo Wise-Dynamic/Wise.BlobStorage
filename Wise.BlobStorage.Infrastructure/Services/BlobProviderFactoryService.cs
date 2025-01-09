@@ -22,9 +22,9 @@ namespace BlobStorage.Providers
             _context = context;
         }
 
-        public async Task<(IBlobProviderService, Blob)> GetProvider(long blobId)
+        public async Task<(IBlobProviderService, Blob)> GetProvider(Guid blobId)
         {
-            var blob = await _context.Blobs.FirstOrDefaultAsync(x => x.Id == blobId && !x.IsDeleted);
+            var blob = await _context.Blobs.FirstOrDefaultAsync(x => x.Guid == blobId && !x.IsDeleted);
             if (blob == null)
             {
                 throw new Exception("Blob not found");

@@ -15,7 +15,7 @@ namespace BlobStorage.Providers
             throw new NotImplementedException();
         }
 
-        public Task<long> SaveAsync(string containerName, string blobName, Stream data)
+        public Task<Guid> SaveAsync(string containerName, string blobName, Stream data)
         {
             throw new NotImplementedException();
         }

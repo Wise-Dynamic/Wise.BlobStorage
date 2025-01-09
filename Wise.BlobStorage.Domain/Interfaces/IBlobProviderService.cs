@@ -4,7 +4,7 @@ namespace BlobStorage.Interfaces
 {
     public interface IBlobProviderService
     {
-        Task<long> SaveAsync(string containerName, string blobName , Stream data);
+        Task<Guid> SaveAsync(string containerName, string blobName , Stream data);
         Task<byte[]> GetAsync(Blob blob);
         Task DeleteAsync(string containerName, string blobName);
     }

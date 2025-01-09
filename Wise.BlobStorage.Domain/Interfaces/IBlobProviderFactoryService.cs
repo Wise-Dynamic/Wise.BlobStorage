@@ -5,6 +5,6 @@ namespace BlobStorage.Interfaces
     public interface IBlobProviderFactoryService
     {
         IBlobProviderService Create();
-        Task<(IBlobProviderService, Blob)> GetProvider(long blobId);
+        Task<(IBlobProviderService, Blob)> GetProvider(Guid blobId);
     }
 }

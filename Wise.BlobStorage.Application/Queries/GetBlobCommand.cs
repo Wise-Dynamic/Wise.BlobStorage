@@ -6,7 +6,7 @@ namespace Wise.BlobStorage.Application.Queries
 {
     public class GetBlobCommand : IRequest<BlobDto>
     {
-        public long BlobId { get; set; }
+        public Guid BlobId { get; set; }
     }
 
     public class GetBlobCommandHandler : IRequestHandler<GetBlobCommand, BlobDto>
