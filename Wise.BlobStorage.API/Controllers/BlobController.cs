@@ -33,6 +33,7 @@ namespace Wise.BlobStorage.API.Controllers
                 
         [HttpGet]
         [Route("download/{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> DownloadAsync([FromRoute]Guid id)
         {
             var result = await _mediator.Send(new GetBlobCommand { BlobId = id });
